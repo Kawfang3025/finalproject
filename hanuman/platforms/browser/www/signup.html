@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>SomDai</title>
+</head>
+
+<body>
+    <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+            <div class="signup_card">
+                <div class="d-flex justify-content-center">
+                    <div class="brand_logo_container">
+                        <img src="img/logo.png" class="brand_logo" alt="Logo">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center form_container">
+                    <form>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" name="" class="form-control input_user" id="email" placeholder="อีเมลล์">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" name="" class="form-control input_pass" id="password"
+                                placeholder="รหัสผ่าน">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" name="" class="form-control input_pass" id="cfpassword"
+                                placeholder="ยืนยันรหัสผ่าน">
+                        </div>
+                        <hr style="background-color:aliceblue;">
+                        <div>
+                            <a style="color: rgb(255, 255, 255);" href="#">ประวัติส่วนตัว</a>
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" name="" class="form-control input_user" id="fname" placeholder="ชื่อ">
+                            <input type="text" name="" class="form-control input_user" id="lastname" placeholder="สกุล">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                            </div>
+                            <input type="text" name="" class="form-control input_user" id="nickname"
+                                placeholder="ชื่อเล่น">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user-graduate"></i></span>
+                            </div>
+                            <select class="form-control " id="department" style="width: 87%">
+                                <option>แผนก</option>
+                                <option value="Sale and Marketing">Sale and Marketing</option>
+                                <option value="Accounting">Accounting</option>
+                                <option value="Purchased">Purchased</option>
+                                <option value="Operation">Operation</option>
+                                <option value="Guide">Guide</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Receptions">Receptions</option>
+                                <option value="Reservation">Reservation</option>
+                                <option value="Food and Beverage">Food and Beverage</option>
+                                <option value="Kitchen">Kitchen</option>
+                                <option value="Drivers">Drivers</option>
+                                <option value="Human Resources">Human Resources</option>
+                            </select>
+
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+                            </div>
+                            <select class="form-control " id="position" style="width: 85%">
+                                <option>ตำแหน่ง</option>
+                                <option value="President(CEO)">President(CEO)</option>
+                                <option value="Vice-president">Vice-president</option>
+                                <option value="Managing Director">Managing Director</option>
+                                <option value="General Manager(GM)">General Manager(GM)</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Assistant Manager">Assistant Manager</option>
+                                <option value="Supervisor">Supervisor</option>
+                                <option value="Officer">Officer</option>
+                                <option value="Technicain">Technicain</option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            </div>
+                            <input type="text" name="" class="form-control input_user" id="tel" value=""
+                                placeholder="เบอร์โทร">
+                        </div>
+
+
+                    </form>
+                </div>
+                <div  class="d-flex justify-content-center mt-3 login_container">
+                    <a name="" onclick="insert();" class="btn login_btn">ลงทะเบียน</a>
+                </div>
+                <div id="buttoncf"></div>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/index.js"></script>
+
+</body>
+<script>
+
+    function insert() {
+        // console.log(department.value);
+        // console.log(position.value);
+
+
+        var e_mail = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var firstName = document.getElementById("fname").value;
+        var lastName = document.getElementById("lastname").value;
+        var nickname = document.getElementById("nickname").value;
+        var department = document.getElementById("department").value;
+        var positions = document.getElementById("position").value;
+        var telNumber = document.getElementById("tel").value;
+        if (document.getElementById("password") === document.getElementById("cfpassword")) {
+
+            var xmlhttp = new XMLHttpRequest();
+            if (department.value === "Engineering") {
+                var url = "http://localhost:8080/technicains/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + "," + password + "," + "";
+            } else {
+                var url = "http://localhost:8080/employees/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + "," + password + "," + "";
+            }
+            xmlhttp.open("POST", url, false);
+            xmlhttp.send();
+        } else {
+            document.getElementById("buttoncf").innerHTML+= '<div class="alert alert-danger alert-dismissible fade show">'+
+    '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+    '<strong>รหัสผ่านไม่ตรงกัน!</strong></div>';
+            
+        }
+
+    }
+
+
+
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+
+</html>

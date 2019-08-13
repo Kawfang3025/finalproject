@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>SomDai</title>
+</head>
+
+<body
+    style="background-image: radial-gradient( circle farthest-corner at 1.8% 0%,  rgba(255,255,255,1) 37.6%, #bbb 90% );">
+    <nav class="navbar navbar-expand-sm justify-content-center" style="background-color: rgb(10, 6, 43)">
+
+        <h4 class="text-light ">SomDai</h4>
+
+    </nav>
+    <div class="container" style="padding-left: 0%;height: 100%;">
+        <a name="" id="" class="btn btn-dark rounded-0 top-left mt-2" href="home.html" role="button"> กลับหน้าเมนู</a>
+
+        <div class="container req">
+            <hr>
+            <div class="row">
+                <i class="fas fa-circle ml-1 " style="color: rgb(255, 4, 4)"></i>
+                <img src="img/picpro.jpg" class="col-2 rounded-circle pl-0 pr-0" width="100%">
+
+
+                <div class="col-10 row">
+                    <!-- <div class=""> -->
+                    <a class="col-9" style="font-weight:bold">ณัฐวราภรณ์ ทับเที่ยง</a>
+                    <a class="col-3" style="font-weight:bold">22:11</a>
+                    <a class="col-12" style="font-weight:bold;color: blue;">ท่อประปาแตก</a>
+
+                    <!-- </div> -->
+                </div>
+
+            </div>
+
+
+            <hr>
+        </div>
+        <!-- <div class="center mt-5" style="height: 60%;line-height:100%;text-align: center">ไม่พบรายการแจ้งซ่อม</div>       -->
+
+    </div>
+
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+        var email = localStorage.getItem("email");
+        var url = "http://localhost:8080/technicains";
+        xmlhttp.open("GET", url, false);
+        xmlhttp.send();
+        var technicainID;
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var output = xmlhttp.responseText;
+            var jsoutput = JSON.parse(output);
+
+            for (let i = 0; i < jsoutput.length; i++) {
+                if (email === jsoutput[i].e_mail) {
+                    technicainID = jsoutput[i].technicainID;     
+                }
+
+            }
+        }
+        
+        function showRepairingByID(){
+            var xmlhttp = new XMLHttpRequest();
+            var url = "http://localhost:8080/repairing/technicain/"+technicainID;
+            xmlhttp.open("GET", url, false);
+            xmlhttp.send();
+            var employeeID;
+            var firstname = [];
+            var lastname = [];
+            var img = [];
+            var detail = [];
+            var date = [];
+            
+        }
+    </script>
+
+    <script type="text/javascript" src="js/index.js"></script>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>SomDai</title>
+
+    <script>
+        
+        setTimeout(getData,3000);
+
+        function getData() {
+            var cogniEmail = localStorage.getItem("email");
+
+            if (cogniEmail === "") {
+                window.location.href='login.html';
+
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                var url = "http://localhost:8080/technicains";
+                xmlhttp.open("GET", url, false);
+                xmlhttp.send();
+                var email = [];
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var output = xmlhttp.responseText;
+                    var jsoutput = JSON.parse(output);
+
+                    for (let i = 0; i < jsoutput.length; i++) {
+                            if( cogniEmail === jsoutput[i].e_mail){
+                                email[0]= jsoutput[i].e_mail;
+                            }
+
+                    } console.log(email[0]);
+                }
+                if(email[0] === cogniEmail){
+                    window.location.href='home.html';
+                }else{
+                    window.location.href='login.html';
+                }
+
+            }
+
+
+        }
+    </script>
+</head>
+
+<body>
+
+    <script type="text/javascript" src="cordova.js"></script>
+</body>
+
+</html>
