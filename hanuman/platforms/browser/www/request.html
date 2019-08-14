@@ -47,6 +47,40 @@
 
     </div>
 
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+        var email = localStorage.getItem("email");
+        var url = "http://localhost:8080/technicains";
+        xmlhttp.open("GET", url, false);
+        xmlhttp.send();
+        var technicainID;
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var output = xmlhttp.responseText;
+            var jsoutput = JSON.parse(output);
+
+            for (let i = 0; i < jsoutput.length; i++) {
+                if (email === jsoutput[i].e_mail) {
+                    technicainID = jsoutput[i].technicainID;     
+                }
+
+            }
+        }
+        
+        function showRepairingByID(){
+            var xmlhttp = new XMLHttpRequest();
+            var url = "http://localhost:8080/repairing/technicain/"+technicainID;
+            xmlhttp.open("GET", url, false);
+            xmlhttp.send();
+            var employeeID;
+            var firstname = [];
+            var lastname = [];
+            var img = [];
+            var detail = [];
+            var date = [];
+            
+        }
+    </script>
+
     <script type="text/javascript" src="js/index.js"></script>
 
 </body>

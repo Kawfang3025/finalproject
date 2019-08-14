@@ -126,8 +126,6 @@
     function insert() {
         // console.log(department.value);
         // console.log(position.value);
-
-
         var e_mail = document.getElementById("email").value;
         var password = document.getElementById("password").value;
         var firstName = document.getElementById("fname").value;
@@ -136,20 +134,28 @@
         var department = document.getElementById("department").value;
         var positions = document.getElementById("position").value;
         var telNumber = document.getElementById("tel").value;
-        if (document.getElementById("password") === document.getElementById("cfpassword")) {
-
+        if (document.getElementById("password").value === document.getElementById("cfpassword").value) {
+            var url;
             var xmlhttp = new XMLHttpRequest();
-            if (department.value === "Engineering") {
-                var url = "http://localhost:8080/technicains/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + "," + password + "," + "";
+            console.log(department);
+            
+            if (department === "Engineering") {
+                url = "http://localhost:8080/technicains/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + "," + password + "," + "";
+                
             } else {
-                var url = "http://localhost:8080/employees/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + "," + password + "," + "";
+                url = "http://localhost:8080/employees/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + "," + password + "," + "";
             }
+            console.log(url);
+            
+            
             xmlhttp.open("POST", url, false);
             xmlhttp.send();
+            localStorage.setItem("email",e_mail);
+            // window.location.href = 'home.html';
         } else {
             document.getElementById("buttoncf").innerHTML+= '<div class="alert alert-danger alert-dismissible fade show">'+
-    '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-    '<strong>รหัสผ่านไม่ตรงกัน!</strong></div>';
+            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+            '<strong>รหัสผ่านไม่ตรงกัน!</strong></div>';
             
         }
 
