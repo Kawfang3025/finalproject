@@ -18,8 +18,11 @@ public class Repairing {
     private String department;
     private String technicainID;
     private String employeeID;
+    private String dateRP;
+    private String statusHead;
+    private String statusTech;
 
-    public Repairing(String repairingID, String img, String detail, String date, String department, String technicainID, String employeeID) {
+    public Repairing(String repairingID, String img, String detail, String date, String department, String technicainID, String employeeID, String dateRP, String statusHead, String statusTech) {
         this.repairingID = repairingID;
         this.img = img;
         this.detail = detail;
@@ -27,6 +30,9 @@ public class Repairing {
         this.department = department;
         this.technicainID = technicainID;
         this.employeeID = employeeID;
+        this.dateRP = dateRP;
+        this.statusHead = statusHead;
+        this.statusTech = statusTech;
     }
 
     public String getRepairingID() {
@@ -85,4 +91,30 @@ public class Repairing {
         this.employeeID = employeeID;
     }
 
+    public String getDateRP() {
+        return dateRP;
+    }
+
+    public void setDateRP(String dateRP) {
+        this.dateRP = dateRP;
+    }
+
+    public String getStatusHead() {
+        return statusHead;
+    }
+
+    public void setStatusHead(String statusHead) {
+        this.statusHead = statusHead;
+    }
+
+    public String getStatusTech() {
+        return statusTech;
+    }
+
+    public void setStatusTech(String statusTech) {
+        this.statusTech = statusTech;
+    }
+
+    
 }
+

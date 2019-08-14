@@ -25,4 +25,7 @@ public interface IHanumanService {
     public abstract void updateRepairing(String repairingID,String img,String detail,String date,String department,String technicainID,String employeeID);
     public abstract void updateEmployee(String employeeID,String firstName,String lastName,String nickname,String department,String positions,String telNumber,String e_mail,String password,String img);
     public abstract void updateTechnicain(String technicainID,String firstName,String lastName,String nickname,String department,String positions,String telNumber,String e_mail,String password,String img);
+    public abstract void updateStatusHead(String repairingID,String statusHead);
+    public abstract void updateStatusTech(String repairingID,String statusTech);
+    public abstract void updateDateRP(String repairingID,String dateRP);
 }

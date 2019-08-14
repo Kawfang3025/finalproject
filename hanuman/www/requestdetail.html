@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>SomDai</title>
+</head>
+
+<body
+    style="background-image: radial-gradient( circle farthest-corner at 1.8% 0%,  rgba(255,255,255,1) 37.6%, #bbb 90% );">
+    <nav class="navbar navbar-expand-sm justify-content-center" style="background-color: rgb(10, 6, 43)">
+
+        <h4 class="text-light ">SomDai</h4>
+
+    </nav>
+    <div class="container" style="padding-left: 0%;padding-right: 0%">
+        <a name="" id="" class="btn btn-dark rounded-0 top-left mt-2" href="request.html" role="button">
+            กลับก่อนหน้า</a>
+    </div>
+    <div class="container">
+        <img src="img/fix.jpg" class="img-fluid pt-3 pb-3" alt="Responsive image">
+
+        <div class="row">
+            <div class="col-3"><img src="img/profile.png" class="rounded-circle img-fluid" style="width: auto"
+                    alt="Cinque Terre"></div>
+            <div class="col-6">
+                <div class="row" id="requester">
+                    <div class="col-12 font-weight-bold" id="name"></div>
+                    <div class="col-12 text-danger" id="poswithdep"></div>
+                    <div class="col-12" id="tel"></div>
+                </div>
+            </div>
+            <div class="col-3"><i class="fas fa-phone-volume" style="font-size:50px; color: blue"></i></div>
+        </div>
+
+    </div>
+
+    <script>
+        var name = localStorage.getItem('namerp') + " " + localStorage.getItem('lastrp');;
+        var detail = localStorage.getItem('detailrp');
+        var position;
+        var department;
+        var tel;
+        var empID = localStorage.getItem('empID');
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://localhost:8080/employees/employeeID/" + empID;
+        xmlhttp.open("GET", url, false);
+        xmlhttp.send();
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var output = xmlhttp.responseText;
+            var jsoutput = JSON.parse(output);
+            for (let i = 0; i < jsoutput.length; i++) {
+                position = jsoutput[i].positions;
+                department = jsoutput[i].department;
+                tel = jsoutput[i].telNumber;
+            }
+        }
+        document.getElementById('name').innerHTML = name;
+        document.getElementById('poswithdep').innerHTML = department+'-'+position;
+        document.getElementById('tel').innerHTML = tel;
+
+
+    </script>
+
+    <script type="text/javascript" src="js/index.js"></script>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+
+</html>

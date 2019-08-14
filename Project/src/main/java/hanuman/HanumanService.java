@@ -1,9 +1,5 @@
 package hanuman;
 
-import hanuman.IHanumanService;
-import hanuman.Repairing;
-import hanuman.Employees;
-import hanuman.Technicains;
 import java.sql.*;
 import java.util.ArrayList;
 import org.springframework.stereotype.Service;
@@ -38,7 +34,10 @@ public class HanumanService implements IHanumanService{
                         rs.getString("date"),
                         rs.getString("department"),
                         rs.getString("technicainID"),
-                        rs.getString("employeeID"));
+                        rs.getString("employeeID"),
+                        rs.getString("dateRP"),
+                        rs.getString("statusHead"),
+                        rs.getString("statusTech"));
                 Repairing.add(newRepair);
             }
         }catch (Exception e) {
@@ -70,7 +69,10 @@ public class HanumanService implements IHanumanService{
                         rs.getString("date"),
                         rs.getString("department"),
                         rs.getString("technicainID"),
-                        rs.getString("employeeID"));
+                        rs.getString("employeeID"),
+                        rs.getString("dateRP"),
+                        rs.getString("statusHead"),
+                        rs.getString("statusTech"));
                 Repairing.add(newRepair);
             }
         }catch (Exception e) {
@@ -104,7 +106,10 @@ public class HanumanService implements IHanumanService{
                         rs.getString("date"),
                         rs.getString("department"),
                         rs.getString("technicainID"),
-                        rs.getString("employeeID"));
+                        rs.getString("employeeID"),
+                        rs.getString("dateRP"),
+                        rs.getString("statusHead"),
+                        rs.getString("statusTech"));
                 Repairing.add(newRepair);
             }
         }catch (Exception e) {
@@ -139,7 +144,10 @@ public class HanumanService implements IHanumanService{
                         rs.getString("date"),
                         rs.getString("department"),
                         rs.getString("technicainID"),
-                        rs.getString("employeeID"));
+                        rs.getString("employeeID"),
+                        rs.getString("dateRP"),
+                        rs.getString("statusHead"),
+                        rs.getString("statusTech"));
                 Repairing.add(newRepair);
             }
         }catch (Exception e) {
@@ -259,7 +267,6 @@ public class HanumanService implements IHanumanService{
             try {
                 stmt.close();
                 con.close();
-                System.out.println("5555555");
             } catch (Exception e) {
             }
         }
@@ -386,8 +393,7 @@ public class HanumanService implements IHanumanService{
             con = DriverManager.getConnection("jdbc:mysql://localhost/hanuman?user=root&password=root");
             String sql = "DELETE FROM repairing WHERE repairingID ="+repairingID;
             stmt = con.prepareStatement(sql);
-             stmt.executeUpdate();
-//            rs.Update(repairingID);
+            stmt.executeUpdate();
         }catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -578,6 +584,69 @@ public class HanumanService implements IHanumanService{
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost/hanuman?user=root&password=root");
             String sql = "UPDATE technicains SET firstName ='"+ firstName +"',lastName ='"+lastName+"',nickname ='"+nickname+"',department ='"+department+"',positions ='"+positions+"',telNumber ='"+telNumber+"',e_mail ='"+e_mail+"',password ='"+password+"',img ='"+img+"'WHERE technicainID = "+technicainID;
+            stmt = con.prepareStatement(sql);
+            stmt.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
+    public void updateStatusHead(String repairingID, String statusHead) {
+        PreparedStatement stmt = null;
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/hanuman?user=root&password=root");
+            String sql = "UPDATE repairing SET statusHead ='"+ statusHead+"' WHERE repairingID = "+repairingID;
+            stmt = con.prepareStatement(sql);
+            stmt.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
+    public void updateStatusTech(String repairingID, String statusTech) {
+        PreparedStatement stmt = null;
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/hanuman?user=root&password=root");
+            String sql = "UPDATE repairing SET statusTech ='"+ statusTech+"' WHERE repairingID = "+repairingID;
+            stmt = con.prepareStatement(sql);
+            stmt.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
+    public void updateDateRP(String repairingID, String dateRP) {
+        PreparedStatement stmt = null;
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/hanuman?user=root&password=root");
+            String sql = "UPDATE repairing SET dateRP ='"+ dateRP+"' WHERE repairingID = "+repairingID;
             stmt = con.prepareStatement(sql);
             stmt.executeUpdate();
         }catch (Exception e) {

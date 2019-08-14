@@ -114,4 +114,19 @@ public class HanumanController {
     public void updateTechnicain(@PathVariable("technicainID") String technicainID, @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, @PathVariable("date") String date, @PathVariable("department") String department,@PathVariable("positions") String positions, @PathVariable("telNumber") String telNumber, @PathVariable("e_mail") String e_mail, @PathVariable("password") String password, @PathVariable("img") String img) {
        Technicains.updateTechnicain(technicainID, firstName, lastName, date, department, positions, telNumber, e_mail, password, img);
     }
+    
+    @RequestMapping("/repairing/update/statusHead/{repairingID},{statusHead}")
+    public void updateStatusHead(@PathVariable("repairingID") String repairingID, @PathVariable("statusHead") String statusHead) {
+       Repairing.updateStatusHead(repairingID,statusHead);
+    }
+    
+    @RequestMapping("/repairing/update/statusTech/{repairingID},{statusTech}")
+    public void updateStatusTech(@PathVariable("repairingID") String repairingID, @PathVariable("statusTech") String statusTech) {
+       Repairing.updateStatusTech(repairingID,statusTech);
+    }
+    
+    @RequestMapping("/repairing/update/dateRP/{repairingID},{dateRP}")
+    public void updateDateRP(@PathVariable("repairingID") String repairingID, @PathVariable("dateRP") String dateRP) {
+       Repairing.updateDateRP(repairingID,dateRP);
+    }
 }

@@ -19,11 +19,11 @@
         <h4 class="text-light ">SomDai</h4>
 
     </nav>
-    <div  class="container" style="padding-left: 0%;height: 100%;">
+    <div class="container" style="padding-left: 0%;height: 100%;">
         <a name="" id="" class="btn btn-dark rounded-0 top-left mt-2" href="home.html" role="button"> กลับหน้าเมนู</a>
 
         <div id="requestlist" class="container req">
-                <hr>
+            <hr>
         </div>
 
     </div>
@@ -37,12 +37,12 @@
         var detail = [];
         var date = [];
         var repairID = [];
-            
+
         init();
-        selectRepairingByID(technicainID); 
+        selectRepairingByID(technicainID);
         selectEmployeeByID(employeeID);
         showRepairList();
-        function init(){
+        function init() {
             var xmlhttp = new XMLHttpRequest();
             var email = localStorage.getItem("email");
             var url = "http://localhost:8080/technicains";
@@ -51,72 +51,77 @@
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 var output = xmlhttp.responseText;
                 var jsoutput = JSON.parse(output);
-                 for (let i = 0; i < jsoutput.length; i++) {
+                for (let i = 0; i < jsoutput.length; i++) {
                     if (email === jsoutput[i].e_mail) {
-                        technicainID = jsoutput[i].technicainID; 
-                    }   
+                        technicainID = jsoutput[i].technicainID;
+                    }
                 }
             }
         }
-        
-        function selectRepairingByID(){
+
+        function selectRepairingByID() {
             var xmlhttp = new XMLHttpRequest();
-            var url = "http://localhost:8080/repairing/technicain/"+technicainID;
+            var url = "http://localhost:8080/repairing/technicain/" + technicainID;
             xmlhttp.open("GET", url, false);
             xmlhttp.send();
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 var output = xmlhttp.responseText;
                 var jsoutput = JSON.parse(output);
                 console.log(jsoutput.length);
-                
-                 for (let i = 0; i < jsoutput.length; i++) {
-                    detail.push(jsoutput[i].detail);  
-                    date.push(jsoutput[i].date); 
+
+                for (let i = 0; i < jsoutput.length; i++) {
+                    detail.push(jsoutput[i].detail);
+                    date.push(jsoutput[i].date);
                     employeeID.push(jsoutput[i].employeeID);
                     repairID.push(jsoutput[i].repairingID);
                 }
             }
             console.log(detail);
             console.log(date);
+
         }
-        
-        function selectEmployeeByID(){
+
+        function selectEmployeeByID() {
             for (let i = 0; i < employeeID.length; i++) {
                 var xmlhttp = new XMLHttpRequest();
-                var url = "http://localhost:8080/employees/employeeID/"+employeeID[i];
+                var url = "http://localhost:8080/employees/employeeID/" + employeeID[i];
                 xmlhttp.open("GET", url, false);
                 xmlhttp.send();
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     var output = xmlhttp.responseText;
                     var jsoutput = JSON.parse(output);
-                    for(let j = 0 ; j< jsoutput.length;j++){
-                        firstname.push(jsoutput[j].firstName);  
-                        lastname.push(jsoutput[j].lastName); 
+                    for (let j = 0; j < jsoutput.length; j++) {
+                        firstname.push(jsoutput[j].firstName);
+                        lastname.push(jsoutput[j].lastName);
                         img.push(jsoutput[j].img);
                     }
                 }
             }
-        console.log(employeeID);
-        console.log(firstname);
-        console.log(lastname);
+            console.log(employeeID);
+            console.log(firstname);
+            console.log(lastname);
         }
 
 
-        function showRepairList(){
-            for(let i = 0; i< detail.length; i++){
-                document.getElementById('requestlist').innerHTML += '<div onclick="showdetail('+repairID[i]+')"  class="row"><hr><i class="fas fa-circle ml-1 " style="color: rgb(255, 4, 4)"></i>'+
-                '<img src="img/picpro.jpg" class="col-2 rounded-circle pl-0 pr-0" width="100%">'+
-                '<div  class="col-10 row">'+
-                '<a class="col-7" style="font-weight:bold" >'+firstname[i]+" "+lastname[i]+'</a>'+
-                    '<a class="col-5" style="font-weight:bold">'+date[i]+'</a>'+
-                    '<a class="col-12" style="font-weight:bold;color: blue;">'+detail[i]+'</a>'+
+        function showRepairList() {
+            for (let i = 0; i < detail.length; i++) {
+                document.getElementById('requestlist').innerHTML += '<div onclick="showdetail(`' + firstname[i] + '`,`' + lastname[i] + '`,`' + detail + '`,`' + employeeID[i] + '`)"  class="row"><hr><i class="fas fa-circle ml-1 " style="color: rgb(255, 4, 4)"></i>' +
+                    '<img src="img/picpro.jpg" class="col-2 rounded-circle pl-0 pr-0" width="100%">' +
+                    '<div  class="col-10 row">' +
+                    '<a class="col-7 text-truncate" style="font-weight:bold" >' + firstname[i] + " " + lastname[i] + '</a>' +
+                    '<a class="col-5" style="font-weight:bold">' + date[i] + '</a>' +
+                    '<a class="col-12 text-truncate" style="font-weight:bold;color: blue;">' + detail[i] + '</a>' +
                     '</div> </div></div><hr>';
             }
         }
 
-        function showdetail(id){
-            console.log(id);
+        function showdetail(firstname,lastname,detail,empID) {
             
+            localStorage.setItem('namerp', firstname);
+            localStorage.setItem('lastrp', lastname);
+            localStorage.setItem('detailrp', detail);
+            localStorage.setItem('empID', empID);
+            window.location.href = 'requestdetail.html';
         }
     </script>
 
