@@ -48,21 +48,31 @@
     </div>
 
     <script>
-        var xmlhttp = new XMLHttpRequest();
-        var email = localStorage.getItem("email");
-        var url = "http://localhost:8080/technicains";
-        xmlhttp.open("GET", url, false);
-        xmlhttp.send();
         var technicainID;
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            var output = xmlhttp.responseText;
-            var jsoutput = JSON.parse(output);
-
-            for (let i = 0; i < jsoutput.length; i++) {
-                if (email === jsoutput[i].e_mail) {
-                    technicainID = jsoutput[i].technicainID;     
+        var employeeID = [];
+        var firstname = [];
+        var lastname = [];
+        var img = [];
+        var detail = [];
+        var date = [];
+            
+        init();
+        showRepairingByID(technicainID); 
+        selectEmployeeByID(employeeID);
+        function init(){
+            var xmlhttp = new XMLHttpRequest();
+            var email = localStorage.getItem("email");
+            var url = "http://localhost:8080/technicains";
+            xmlhttp.open("GET", url, false);
+            xmlhttp.send();
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var output = xmlhttp.responseText;
+                var jsoutput = JSON.parse(output);
+                 for (let i = 0; i < jsoutput.length; i++) {
+                    if (email === jsoutput[i].e_mail) {
+                        technicainID = jsoutput[i].technicainID; 
+                    }   
                 }
-
             }
         }
         
@@ -71,13 +81,38 @@
             var url = "http://localhost:8080/repairing/technicain/"+technicainID;
             xmlhttp.open("GET", url, false);
             xmlhttp.send();
-            var employeeID;
-            var firstname = [];
-            var lastname = [];
-            var img = [];
-            var detail = [];
-            var date = [];
-            
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var output = xmlhttp.responseText;
+                var jsoutput = JSON.parse(output);
+                 for (let i = 0; i < jsoutput.length; i++) {
+                    detail.push(jsoutput[i].detail);  
+                    date.push(jsoutput[i].date); 
+                    employeeID.push(jsoutput[i].employeeID); 
+                }
+            }
+            console.log(detail);
+            console.log(date);
+        }
+        
+        function selectEmployeeByID(){
+            for (let i = 0; i < employeeID.length; i++) {
+                var xmlhttp = new XMLHttpRequest();
+                var url = "http://localhost:8080/employees/employeeID/"+employeeID[i];
+                xmlhttp.open("GET", url, false);
+                xmlhttp.send();
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var output = xmlhttp.responseText;
+                    var jsoutput = JSON.parse(output);
+                    if(employeeID[i] === jsoutput[i].employeeID) {
+                        firstname.push(jsoutput[i].firstName);  
+                        lastname.push(jsoutput[i].lastName); 
+                        img.push(jsoutput[i].img);
+                    }
+                }
+            }
+        console.log(employeeID);
+        console.log(firstname);
+        console.log(lastname);
         }
     </script>
 
