@@ -76,7 +76,6 @@
                                 <option value="Receptions">Receptions</option>
                                 <option value="Reservation">Reservation</option>
                                 <option value="Food and Beverage">Food and Beverage</option>
-                                <option value="Kitchen">Kitchen</option>
                                 <option value="Drivers">Drivers</option>
                                 <option value="Human Resources">Human Resources</option>
                             </select>
@@ -139,8 +138,8 @@
             var xmlhttp = new XMLHttpRequest();
             console.log(department);
             
-            if (department === "Engineering") {
-                url = "http://localhost:8080/technicains/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + "," + password + "," + "";
+            if (department == "Engineering") {
+                url = "http://localhost:8080/technicains/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + ","+password +"," + "";
                 
             } else {
                 url = "http://localhost:8080/employees/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + "," + password + "," + "";
@@ -151,7 +150,7 @@
             xmlhttp.open("POST", url, false);
             xmlhttp.send();
             localStorage.setItem("email",e_mail);
-            // window.location.href = 'home.html';
+            window.location.href = 'home.html';
         } else {
             document.getElementById("buttoncf").innerHTML+= '<div class="alert alert-danger alert-dismissible fade show">'+
             '<button type="button" class="close" data-dismiss="alert">&times;</button>'+

@@ -92,6 +92,19 @@
                 document.getElementById('task').innerHTML += "<option value='" +jsoutput[i].technicainID+"'>"+'(ช่าง'+jsoutput[i].nickname+')'+jsoutput[i].firstName+"</option>"
             }
         }
+        var xmlhttp = new XMLHttpRequest();
+        var url1 = "/repairing/repairingID/"+localStorage.getItem('repairID');
+        xmlhttp.open("GET", url, false);
+        xmlhttp.send();
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var output = xmlhttp.responseText;
+            var jsoutput = JSON.parse(output);
+            if(jsoutput[0].technicainID !== "NULL"){
+                document.getElementById('setTask').innerHTML = '<div class="font-weight-bold p-1 lead">มอบหมายงาน</div><p class="text-center">'+jsoutput[0].firstName+" "+jsoutput[0].lastName+" ("+jsoutput[0].nickname+')</p>';
+
+            }
+            
+        }
 
         function confirm(){
             var choosingT = document.getElementById('task').value;

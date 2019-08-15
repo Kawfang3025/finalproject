@@ -14,7 +14,7 @@
 
 <body
     style="background-image: radial-gradient( circle farthest-corner at 1.8% 0%,  rgba(255,255,255,1) 37.6%, #bbb 90% );">
-    <nav class="navbar navbar-expand-sm justify-content-center" style="background-color: rgb(10, 6, 43)">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="background-color: rgb(10, 6, 43)">
 
         <h4 class="text-light ">SomDai</h4>
 
@@ -29,7 +29,9 @@
     </div>
 
     <script>
-        var technicainID;
+        var ID = 0;
+        var department;
+        var position;
         var employeeID = [];
         var firstname = [];
         var lastname = [];
@@ -39,29 +41,56 @@
         var repairID = [];
 
         init();
-        selectRepairingByID(technicainID);
+        selectRepairingByID(ID);
         selectEmployeeByID(employeeID);
         showRepairList();
         function init() {
             var xmlhttp = new XMLHttpRequest();
             var email = localStorage.getItem("email");
-            var url = "http://localhost:8080/technicains";
-            xmlhttp.open("GET", url, false);
+            var url1 = "http://localhost:8080/technicains";
+            xmlhttp.open("GET", url1, false);
             xmlhttp.send();
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 var output = xmlhttp.responseText;
                 var jsoutput = JSON.parse(output);
                 for (let i = 0; i < jsoutput.length; i++) {
                     if (email === jsoutput[i].e_mail) {
-                        technicainID = jsoutput[i].technicainID;
+                        ID = jsoutput[i].technicainID;
+                        position = jsoutput[i].positions;
+                        department = jsoutput[i].department;
+                    }
+                }
+                if(ID === 0){
+                    url2 = "http://localhost:8080/employees";
+                    xmlhttp.open("GET", url2, false);
+                    xmlhttp.send();
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        var output = xmlhttp.responseText;
+                        var jsoutput = JSON.parse(output);
+                        for (let i = 0; i < jsoutput.length; i++) {
+                            if (email === jsoutput[i].e_mail) {
+                                ID = jsoutput[i].employeeID;
+                                department = jsoutput[i].department;
+                            }
+                        }
                     }
                 }
             }
+            console.log(ID);
         }
 
         function selectRepairingByID() {
             var xmlhttp = new XMLHttpRequest();
-            var url = "http://localhost:8080/repairing/technicain/" + technicainID;
+            var url;
+            if(department === "Engineering"){
+                if(position === "Supervisor"){
+                    url = "http://localhost:8080/repairing";
+                }else{
+                    url = "http://localhost:8080/repairing/technicain/" + ID;
+                }
+            }else{
+                url = "http://localhost:8080/repairing/department/" + department;
+            }
             xmlhttp.open("GET", url, false);
             xmlhttp.send();
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {

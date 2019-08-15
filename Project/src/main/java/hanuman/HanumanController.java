@@ -95,7 +95,7 @@ public class HanumanController {
        Employees.insertEmployee( firstName, lastName, nickname, department, positions, telNumber, e_mail, password, img);
     }
     
-    @RequestMapping("/technicains/insert/{firstName},{lastName},{date},{department},{positions},{telNumber},{e_mail},{password},{img}")
+    @RequestMapping("/technicains/insert/{firstName},{lastName},{nickname},{department},{positions},{telNumber},{e_mail},{password},{img}")
     public void insertTechnicain(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, @PathVariable("nickname") String nickname, @PathVariable("department") String department,@PathVariable("positions") String positions, @PathVariable("telNumber") String telNumber, @PathVariable("e_mail") String e_mail, @PathVariable("password") String password, @PathVariable("img") String img) {
        Technicains.insertTechnicain(firstName, lastName, nickname, department, positions, telNumber, e_mail, password, img);
     }
