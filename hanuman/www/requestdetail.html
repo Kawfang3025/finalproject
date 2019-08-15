@@ -38,7 +38,20 @@
             </div>
             <div class="col-3"><i class="fas fa-phone-volume" style="font-size:50px; color: blue"></i></div>
         </div>
+        <div class="border border-info rounded mt-2" style="color: aliceblue; background-image: radial-gradient( circle 760px at 50.7% 60.5%,  rgba(76,120,183,1) 0%, rgba(34,70,122,1) 90% );">
+                <div class="font-weight-bold p-1 lead">รายละเอียด</div>
+                <p class="p-1 text-center " id="detailshow"></p>
+        </div>
+        <div class="border border-info rounded mt-2"  id="setTask" style="color: aliceblue;background-image: linear-gradient( 69.8deg,  rgba(25,49,108,1) 2.8%, rgba(1,179,201,1) 97.8% );">
+                <div class="font-weight-bold p-1 lead">มอบหมายงาน</div>
+                <select class="form-control text-center" id="task" style="width: 85%">
+                        <option>เลือกช่าง</option>
+    
+                </select>
+                <button type="button" class="btn btn-success text-center" onclick="confirm()">ยืนยัน</button>
+        </div>
 
+        
     </div>
 
     <script>
@@ -47,6 +60,7 @@
         var position;
         var department;
         var tel;
+        var technicain = [];
         var empID = localStorage.getItem('empID');
         var xmlhttp = new XMLHttpRequest();
         var url = "http://localhost:8080/employees/employeeID/" + empID;
@@ -64,6 +78,46 @@
         document.getElementById('name').innerHTML = name;
         document.getElementById('poswithdep').innerHTML = department+'-'+position;
         document.getElementById('tel').innerHTML = tel;
+        document.getElementById('detailshow').innerHTML = detail;
+
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://localhost:8080/technicains";
+        xmlhttp.open("GET", url, false);
+        xmlhttp.send();
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var output = xmlhttp.responseText;
+            var jsoutput = JSON.parse(output);
+            for (let i = 0; i < jsoutput.length; i++) {
+                technicain = '(ช่าง'+jsoutput[i].nickname +')'+jsoutput[i].firstName;
+                document.getElementById('task').innerHTML += "<option value='" +jsoutput[i].technicainID+"'>"+'(ช่าง'+jsoutput[i].nickname+')'+jsoutput[i].firstName+"</option>"
+            }
+        }
+
+        function confirm(){
+            var choosingT = document.getElementById('task').value;
+            console.log(choosingT);
+
+            var xmlhttp = new XMLHttpRequest();
+            var url = "http://localhost:8080/repairing/update/technicainID/"+localStorage.getItem('repairID')+","+choosingT;
+            xmlhttp.open("GET", url, false);
+            xmlhttp.send();
+
+            var xmlhttp = new XMLHttpRequest();
+            var url = "http://localhost:8080/technicains/technicainID/"+choosingT;
+            xmlhttp.open("GET", url, false);
+            xmlhttp.send();
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var output = xmlhttp.responseText;
+            var jsoutput = JSON.parse(output);
+            for (let i = 0; i < jsoutput.length; i++) {
+                document.getElementById('setTask').innerHTML = '<div class="font-weight-bold p-1 lead">มอบหมายงาน</div><p class="text-center">'+jsoutput[i].firstName+" "+jsoutput[i].lastName+" ("+jsoutput[i].nickname+')</p>';
+            
+            }
+            }
+           
+
+            
+        }
 
 
     </script>

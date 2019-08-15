@@ -115,18 +115,23 @@ public class HanumanController {
        Technicains.updateTechnicain(technicainID, firstName, lastName, date, department, positions, telNumber, e_mail, password, img);
     }
     
-    @RequestMapping("/repairing/update/statusHead/{repairingID},{statusHead}")
-    public void updateStatusHead(@PathVariable("repairingID") String repairingID, @PathVariable("statusHead") String statusHead) {
-       Repairing.updateStatusHead(repairingID,statusHead);
+    @RequestMapping("/repairing/update/statusHead/{repairingID}")
+    public void updateStatusHead(@PathVariable("repairingID") String repairingID) {
+       Repairing.updateStatusHead(repairingID);
     }
     
-    @RequestMapping("/repairing/update/statusTech/{repairingID},{statusTech}")
-    public void updateStatusTech(@PathVariable("repairingID") String repairingID, @PathVariable("statusTech") String statusTech) {
-       Repairing.updateStatusTech(repairingID,statusTech);
+    @RequestMapping("/repairing/update/statusTech/{repairingID}")
+    public void updateStatusTech(@PathVariable("repairingID") String repairingID) {
+       Repairing.updateStatusTech(repairingID);
     }
     
     @RequestMapping("/repairing/update/dateRP/{repairingID},{dateRP}")
     public void updateDateRP(@PathVariable("repairingID") String repairingID, @PathVariable("dateRP") String dateRP) {
        Repairing.updateDateRP(repairingID,dateRP);
+    }
+    
+    @RequestMapping("/repairing/update/technicainID/{repairingID},{technicainID}")
+    public void updateDateTechnicainRP(@PathVariable("repairingID") String repairingID, @PathVariable("technicainID") String technicainID) {
+       Repairing.updateDateTechnicainRP(repairingID,technicainID);
     }
 }

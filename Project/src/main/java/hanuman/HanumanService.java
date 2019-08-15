@@ -598,13 +598,13 @@ public class HanumanService implements IHanumanService{
     }
 
     @Override
-    public void updateStatusHead(String repairingID, String statusHead) {
+    public void updateStatusHead(String repairingID) {
         PreparedStatement stmt = null;
         Connection con = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost/hanuman?user=root&password=root");
-            String sql = "UPDATE repairing SET statusHead ='"+ statusHead+"' WHERE repairingID = "+repairingID;
+            String sql = "UPDATE repairing SET statusHead = 'y' WHERE repairingID = "+repairingID;
             stmt = con.prepareStatement(sql);
             stmt.executeUpdate();
         }catch (Exception e) {
@@ -619,13 +619,13 @@ public class HanumanService implements IHanumanService{
     }
 
     @Override
-    public void updateStatusTech(String repairingID, String statusTech) {
+    public void updateStatusTech(String repairingID) {
         PreparedStatement stmt = null;
         Connection con = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost/hanuman?user=root&password=root");
-            String sql = "UPDATE repairing SET statusTech ='"+ statusTech+"' WHERE repairingID = "+repairingID;
+            String sql = "UPDATE repairing SET statusTech = 'y' WHERE repairingID = "+repairingID;
             stmt = con.prepareStatement(sql);
             stmt.executeUpdate();
         }catch (Exception e) {
@@ -647,6 +647,27 @@ public class HanumanService implements IHanumanService{
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost/hanuman?user=root&password=root");
             String sql = "UPDATE repairing SET dateRP ='"+ dateRP+"' WHERE repairingID = "+repairingID;
+            stmt = con.prepareStatement(sql);
+            stmt.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
+    public void updateDateTechnicainRP(String repairingID, String technicainID) {
+         PreparedStatement stmt = null;
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/hanuman?user=root&password=root");
+            String sql = "UPDATE repairing SET technicainID ='"+ technicainID+"' WHERE repairingID = "+repairingID;
             stmt = con.prepareStatement(sql);
             stmt.executeUpdate();
         }catch (Exception e) {
