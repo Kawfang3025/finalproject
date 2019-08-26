@@ -28,7 +28,7 @@ function openNav() {
             }
         }
         if (ID === 0) {
-            url2 = "http://localhost:8080/employees";
+            url2 = "http://"+IP+":8080/employees";
             xmlhttp.open("GET", url2, false);
             xmlhttp.send();
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
