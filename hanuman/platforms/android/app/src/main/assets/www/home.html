@@ -10,21 +10,43 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <title>SomDai</title>
-    
+
 </head>
 
 <body
     style="background-image: radial-gradient( circle farthest-corner at 1.8% 0%,  rgba(255,255,255,1) 37.6%, #bbb 90% );">
-    <nav class="navbar navbar-expand-sm justify-content-center" style="background-color: rgb(10, 6, 43)">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark" style="background-color: rgb(10, 6, 43)">
 
-        <h4 class="text-light ">SomDai</h4>
+        <!-- <h4 class="text-light ">SomDai</h4> -->
+        <a class="navbar-brand" href="#">
+            <img src="img/logo.png" alt="logo" style="width:40px;">
+        </a>
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    </nav>
+       <!-- Navbar links -->
+       <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="request.html">รายการแจ้งซ่อม</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="report.html">รายงานการแจ้งซ่อม</a>
+            </li>
+            <li class="nav-item">
+
+                <a class="nav-link" href="javascript:logout();">ออกจากระบบ</a>
+            </li>
+        </ul>
+    </div>
+</nav>
     <div class="container ">
 
         <div class="row mt-3">
-            <div class="col-4 " ">
-                            <img src=" img/profile.png" class="rounded-circle" alt="Cinque Terre" style="width: 100%">
+            <div class="col-4 ">
+                <img src=" img/profile.png" class="rounded-circle" alt="Cinque Terre" style="width: 100%">
             </div>
             <div class="col-8">
                 <div class="card" style="width: auto">
@@ -38,6 +60,11 @@
         </div>
         <div class="row mt-3 text-center">
             <div class="col-12 pt-3 mt-5">
+                <a name="" id="" class="btn btn-lg btn-primary text-center" href="newRequest.html" role="button"
+                    style="padding-top: 5%;padding-bottom: 5%;background-image: radial-gradient( circle farthest-corner at -4.7% -4%,  rgba(3,23,157,1) 0%, rgba(97,148,241,1) 90% );width: 60%">แจ้งซ่อม</a>
+
+            </div>
+            <div class="col-12 pt-5">
                 <a name="" id="" class="btn btn-lg btn-primary text-center" href="request.html" role="button"
                     style="padding-top: 5%;padding-bottom: 5%;background-image: radial-gradient( circle farthest-corner at -4.7% -4%,  rgba(3,23,157,1) 0%, rgba(97,148,241,1) 90% );width: 60%">รายการแจ้งซ่อม</a>
             </div>
@@ -45,33 +72,50 @@
                 <a name="" id="" class="btn btn-lg btn-primary text-center" href="report.html" role="button"
                     style="padding-top: 5%;padding-bottom: 5%;background-image: radial-gradient( circle farthest-corner at -4.7% -4%,  rgba(3,23,157,1) 0%, rgba(97,148,241,1) 90% );width: 60%">รายงานการแจ้งซ่อม</a>
             </div>
+            
         </div>
-
     </div>
     <script type="text/javascript" src="js/index.js"></script>
 
 </body>
 <script>
-        var xmlhttp = new XMLHttpRequest();
-        var email = localStorage.getItem("email");
-
-        var url = "http://localhost:8080/technicains";
-        xmlhttp.open("GET", url, false);
-        xmlhttp.send();
-        var id;
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            var output = xmlhttp.responseText;
-            var jsoutput = JSON.parse(output);
-
-            for (let i = 0; i < jsoutput.length; i++) {
-                if (email === jsoutput[i].e_mail) {
-                    document.getElementById("fname").innerHTML = jsoutput[i].firstName + " " + jsoutput[i].lastName;
-                    document.getElementById("position").innerHTML = jsoutput[i].positions;
-                }
-
+    var ID = 0;
+    var xmlhttp = new XMLHttpRequest();
+    var email = localStorage.getItem("email");
+    var IP = localStorage.getItem("IP");
+    var url1 = "http://"+IP+":8080/technicains";
+    xmlhttp.open("GET", url1, false);
+    xmlhttp.send();
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var output = xmlhttp.responseText;
+        var jsoutput = JSON.parse(output);
+        for (let i = 0; i < jsoutput.length; i++) {
+            if (email === jsoutput[i].e_mail) {
+                ID = jsoutput[i].technicainID;
+                document.getElementById("fname").innerHTML = jsoutput[i].firstName + " " + jsoutput[i].lastName;
+                document.getElementById("position").innerHTML = jsoutput[i].positions;
+                localStorage.setItem("position",jsoutput[i].positions);
             }
         }
-    </script>
+        if (ID === 0) {
+            url2 = "http://"+IP+":8080/employees";
+            xmlhttp.open("GET", url2, false);
+            xmlhttp.send();
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var output = xmlhttp.responseText;
+                var jsoutput = JSON.parse(output);
+                for (let i = 0; i < jsoutput.length; i++) {
+                    if (email === jsoutput[i].e_mail) {
+                        document.getElementById("fname").innerHTML = jsoutput[i].firstName + " " + jsoutput[i].lastName;
+                        document.getElementById("position").innerHTML = jsoutput[i].positions;
+                        localStorage.setItem("position",jsoutput[i].positions);
+                    }
+                }
+            }
+        }
+    }
+
+</script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>

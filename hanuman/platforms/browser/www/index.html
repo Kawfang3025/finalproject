@@ -14,16 +14,20 @@
     <script>
         
         setTimeout(getData,2000);
+
+        localStorage.setItem("IP","192.168.1.55");
+        var IP = localStorage.getItem("IP");
         
         function getData() {
             var cogniEmail = localStorage.getItem("email");
 
             if (cogniEmail === "") {
                 window.location.href='login.html';
+                
 
             } else {
                 var xmlhttp = new XMLHttpRequest();
-                var url = "http://localhost:8080/technicains";
+                var url = "http://"+IP+":8080/technicains";
                 xmlhttp.open("GET", url, false);
                 xmlhttp.send();
                 var email = [];
@@ -39,9 +43,11 @@
                     } console.log(email[0]);
                 }
                 if(email[0] === cogniEmail){
-                    window.location.href='home.html';
+                    window.location.href='request.html';
                 }else{
-                    window.location.href='login.html';
+                    // window.location.href='login.html';
+                    var url = "http://"+IP+":8080/technicains";
+                console.log(url)
                 }
 
             }

@@ -9,19 +9,46 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/sidebar.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <title>SomDai</title>
 </head>
 
-<body
-    style="background-image: radial-gradient( circle farthest-corner at 1.8% 0%,  rgba(255,255,255,1) 37.6%, #bbb 90% );">
-    <nav class="navbar navbar-expand-sm justify-content-center" style="background-color: rgb(10, 6, 43)">
-
-        <h4 class="text-light ">SomDai</h4>
-
-    </nav>
+<body style="background-image: radial-gradient( circle farthest-corner at 1.8% 0%,  rgba(255,255,255,1) 37.6%, #bbb 90% );">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark" style="background-color: rgb(10, 6, 43)">
+                <!-- Toggler/collapsibe Button -->
+                <a id="main" style="color: aliceblue">
+                    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+                </a>
+        
+                <!-- <h4 class="text-light ">SomDai</h4> -->
+                <a class="navbar-brand" href="#">
+                    <img src="img/logo.png" alt="logo" style="width:40px;">
+                </a>
+        
+            </nav>
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div class="col-8 ">
+                    <img src=" img/profile.png" class="rounded-circle" alt="Cinque Terre" style="width: 100%">
+                </div>
+                <div class="col-16">
+                    <div class="card" style="width: auto">
+                        <div class="card-body">
+                            <h5 class="card-title" id="fname">ชื่อ-สกุล</h5>
+                            <h6 class="card-subtitle mb-2 text-muted" id="position">ตำแหน่ง</h6>
+        
+                        </div>
+                    </div>
+                </div>
+                <a href="request.html">หน้าหลัก</a>
+                <a href="newRequest.html">แจ้งซ่อม</a>
+                <a href="report.html">รายงานการแจ้งซ่อม</a>
+                <a href="javascript:logout();">ออกจากระบบ</a>
+            </div>
     <div class="container" style="padding-left: 0%;padding-right: 0%">
-        <a name="" id="" class="btn btn-dark rounded-0 top-left mt-2" href="request.html" role="button">
-            กลับก่อนหน้า</a>
+        <!-- <a name="" id="" class="btn btn-dark rounded-0 top-left mt-2" href="request.html" role="button">
+            กลับก่อนหน้า</a> -->
     </div>
     <div class="container">
         <img src="img/fix.jpg" class="img-fluid pt-3 pb-3" alt="Responsive image">
@@ -38,32 +65,38 @@
             </div>
             <div class="col-3"><i class="fas fa-phone-volume" style="font-size:50px; color: blue"></i></div>
         </div>
-        <div class="border border-info rounded mt-2" style="color: aliceblue; background-image: radial-gradient( circle 760px at 50.7% 60.5%,  rgba(76,120,183,1) 0%, rgba(34,70,122,1) 90% );">
-                <div class="font-weight-bold p-1 lead">รายละเอียด</div>
-                <p class="p-1 text-center " id="detailshow"></p>
-        </div>
-        <div class="border border-info rounded mt-2"  id="setTask" style="color: aliceblue;background-image: linear-gradient( 69.8deg,  rgba(25,49,108,1) 2.8%, rgba(1,179,201,1) 97.8% );">
-                <div class="font-weight-bold p-1 lead">มอบหมายงาน</div>
-                <select class="form-control text-center" id="task" style="width: 85%">
-                        <option>เลือกช่าง</option>
-    
-                </select>
-                <button type="button" class="btn btn-success text-center" onclick="confirm()">ยืนยัน</button>
+        <div class="border border-info rounded mt-2"
+            style="color: aliceblue; background-image: radial-gradient( circle 760px at 50.7% 60.5%,  rgba(76,120,183,1) 0%, rgba(34,70,122,1) 90% );">
+            <div class="font-weight-bold p-1 lead">รายละเอียด</div>
+            <p class="p-1 text-center " id="detailshow"></p>
         </div>
 
-        
+        <div class="border border-info rounded mt-2" id="setTask"
+            style="color: aliceblue;background-image: linear-gradient( 69.8deg,  rgba(25,49,108,1) 2.8%, rgba(1,179,201,1) 97.8% );">
+            <div class="font-weight-bold p-1 lead">มอบหมายงาน</div>
+            <select class="form-control text-center" id="task" style="width: 85%">
+                <option>เลือกช่าง</option>
+
+            </select>
+            <button type="button" class="btn btn-success text-center" onclick="confirm()">ยืนยัน</button>
+        </div>
+        <div id="SetTime"></div>
+
+
     </div>
 
     <script>
         var name = localStorage.getItem('namerp') + " " + localStorage.getItem('lastrp');;
         var detail = localStorage.getItem('detailrp');
+        var positionOfID = localStorage.getItem("position");
         var position;
         var department;
         var tel;
         var technicain = [];
         var empID = localStorage.getItem('empID');
         var xmlhttp = new XMLHttpRequest();
-        var url = "http://localhost:8080/employees/employeeID/" + empID;
+        var IP = localStorage.getItem("IP");
+        var url = "http://"+IP+":8080/employees/employeeID/" + empID;
         xmlhttp.open("GET", url, false);
         xmlhttp.send();
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -75,68 +108,115 @@
                 tel = jsoutput[i].telNumber;
             }
         }
+
         document.getElementById('name').innerHTML = name;
-        document.getElementById('poswithdep').innerHTML = department+'-'+position;
+        document.getElementById('poswithdep').innerHTML = department + '-' + position;
         document.getElementById('tel').innerHTML = tel;
         document.getElementById('detailshow').innerHTML = detail;
 
+
+
         var xmlhttp = new XMLHttpRequest();
-        var url = "http://localhost:8080/technicains";
+        var url = "http://"+IP+":8080/technicains";
         xmlhttp.open("GET", url, false);
         xmlhttp.send();
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var output = xmlhttp.responseText;
             var jsoutput = JSON.parse(output);
             for (let i = 0; i < jsoutput.length; i++) {
-                technicain = '(ช่าง'+jsoutput[i].nickname +')'+jsoutput[i].firstName;
-                document.getElementById('task').innerHTML += "<option value='" +jsoutput[i].technicainID+"'>"+'(ช่าง'+jsoutput[i].nickname+')'+jsoutput[i].firstName+"</option>"
+                technicain = '(ช่าง' + jsoutput[i].nickname + ')' + jsoutput[i].firstName;
+                document.getElementById('task').innerHTML += "<option value='" + jsoutput[i].technicainID + "'>" + '(ช่าง' + jsoutput[i].nickname + ')' + jsoutput[i].firstName + "</option>"
+
             }
         }
         var xmlhttp = new XMLHttpRequest();
-        var url1 = "/repairing/repairingID/"+localStorage.getItem('repairID');
-        xmlhttp.open("GET", url, false);
+        var url1 = "http://"+IP+":8080/repairing/repairingID/" + localStorage.getItem('repairID');
+        xmlhttp.open("GET", url1, false);
         xmlhttp.send();
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var output = xmlhttp.responseText;
             var jsoutput = JSON.parse(output);
-            if(jsoutput[0].technicainID !== "NULL"){
-                document.getElementById('setTask').innerHTML = '<div class="font-weight-bold p-1 lead">มอบหมายงาน</div><p class="text-center">'+jsoutput[0].firstName+" "+jsoutput[0].lastName+" ("+jsoutput[0].nickname+')</p>';
-
+            if (jsoutput[0].technicainID !== "") {
+                var technicain = jsoutput[0].technicainID;
+                var xmlhttp = new XMLHttpRequest();
+                var url2 = "http://"+IP+":8080/technicains/technicainID/" + technicain;
+                xmlhttp.open("GET", url2, false);
+                xmlhttp.send();
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var output1 = xmlhttp.responseText;
+                    var jsoutput1 = JSON.parse(output1);
+                    document.getElementById('setTask').innerHTML = '<div class="font-weight-bold p-1 lead">มอบหมายงาน</div><p class="text-center">' + jsoutput1[0].firstName + " " + jsoutput1[0].lastName + " (ช่าง" + jsoutput1[0].nickname + ')</p>';
+                }
             }
-            
+            var xmlhttp = new XMLHttpRequest();
+            var url1 = "http://"+IP+":8080/repairing/repairingID/" + localStorage.getItem('repairID');
+            xmlhttp.open("GET", url1, false);
+            xmlhttp.send();
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var output = xmlhttp.responseText;
+                var jsoutput = JSON.parse(output);
+                if (positionOfID === "Technicain" && jsoutput[0].dateRP === null) {
+                    console.log('comein');
+                    document.getElementById('SetTime').innerHTML = '<div class="font-weight-bold p-1 lead bg-info mt-2">ระบุวันที่เข้าซ่อม</div><div class="row"><div class="col-sm-6"><input id="dateRP" type="date" min="2019-08-16" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])/(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])/(?:30))|(?:(?:0[13578]|1[02])-31))"></input> ' +
+                        '<button type="button" class="btn btn-success text-center" onclick="confirmdateRP()">ยืนยัน</button>' + '</div></div></div>';
+                } else {
+
+                    if (jsoutput[0].dateRP === null) {
+                        document.getElementById('SetTime').innerHTML = '<div class="font-weight-bold p-1 lead bg-info mt-2">ระบุวันที่เข้าซ่อม</div><div class="row"><div class="col-sm-6">'
+                            + "ยังไม่ได้ระบุวันที่" + '</div></div></div>'
+                    } else {
+
+                        document.getElementById('SetTime').innerHTML = '<div class="font-weight-bold p-1 lead bg-info mt-2">ระบุวันที่เข้าซ่อม</div><div class="row"><div class="col-sm-6">'
+                            + jsoutput[0].dateRP + '</div></div></div>';
+                    }
+
+                }
+            }
+
         }
 
-        function confirm(){
+        function confirm() {
             var choosingT = document.getElementById('task').value;
             console.log(choosingT);
 
             var xmlhttp = new XMLHttpRequest();
-            var url = "http://localhost:8080/repairing/update/technicainID/"+localStorage.getItem('repairID')+","+choosingT;
+            var url = "http://"+IP+":8080/repairing/update/technicainID/" + localStorage.getItem('repairID') + "," + choosingT;
             xmlhttp.open("GET", url, false);
             xmlhttp.send();
 
             var xmlhttp = new XMLHttpRequest();
-            var url = "http://localhost:8080/technicains/technicainID/"+choosingT;
+            var url = "http://"+IP+":8080/technicains/technicainID/" + choosingT;
             xmlhttp.open("GET", url, false);
             xmlhttp.send();
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            var output = xmlhttp.responseText;
-            var jsoutput = JSON.parse(output);
-            for (let i = 0; i < jsoutput.length; i++) {
-                document.getElementById('setTask').innerHTML = '<div class="font-weight-bold p-1 lead">มอบหมายงาน</div><p class="text-center">'+jsoutput[i].firstName+" "+jsoutput[i].lastName+" ("+jsoutput[i].nickname+')</p>';
-            
-            }
-            }
-           
+                var output = xmlhttp.responseText;
+                var jsoutput = JSON.parse(output);
+                for (let i = 0; i < jsoutput.length; i++) {
+                    document.getElementById('setTask').innerHTML = '<div class="font-weight-bold p-1 lead">มอบหมายงาน</div><p class="text-center">' + jsoutput[i].firstName + " " + jsoutput[i].lastName + " (" + jsoutput[i].nickname + ')</p>';
 
-            
+                }
+            }
+
+
+
+        }
+
+        function confirmdateRP() {
+            var dateRP = document.getElementById('dateRP').value;
+            console.log(dateRP);
+
+            var xmlhttp = new XMLHttpRequest();
+            var url = "http://"+IP+":8080/repairing/update/dateRP/" + localStorage.getItem('repairID') + "," + dateRP;
+            xmlhttp.open("GET", url, false);
+            xmlhttp.send();
+            window.location.href = 'requestdetail.html'
         }
 
 
     </script>
 
     <script type="text/javascript" src="js/index.js"></script>
-
+    <script type="text/javascript" src="js/sidebar.js"></script>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

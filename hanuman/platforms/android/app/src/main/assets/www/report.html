@@ -9,25 +9,52 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <title>SomDai</title>
 </head>
 
 <body
     style="background-image: radial-gradient( circle farthest-corner at 1.8% 0%,  rgba(255,255,255,1) 37.6%, #bbb 90% );">
-    <nav class="navbar navbar-expand-sm justify-content-center" style="background-color: rgb(10, 6, 43)">
-
-        <h4 class="text-light ">SomDai</h4>
-
-    </nav>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark" style="background-color: rgb(10, 6, 43)">
+            <!-- Toggler/collapsibe Button -->
+            <a id="main" style="color: aliceblue">
+                <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+            </a>
+    
+            <!-- <h4 class="text-light ">SomDai</h4> -->
+            <a class="navbar-brand" href="#">
+                <img src="img/logo.png" alt="logo" style="width:40px;">
+            </a>
+    
+        </nav>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="col-8 ">
+                <img src=" img/profile.png" class="rounded-circle" alt="Cinque Terre" style="width: 100%">
+            </div>
+            <div class="col-16">
+                <div class="card" style="width: auto">
+                    <div class="card-body">
+                        <h5 class="card-title" id="fname">ชื่อ-สกุล</h5>
+                        <h6 class="card-subtitle mb-2 text-muted" id="position">ตำแหน่ง</h6>
+    
+                    </div>
+                </div>
+            </div>
+            <a href="request.html">หน้าหลัก</a>
+            <a href="newRequest.html">แจ้งซ่อม</a>
+            <a href="report.html">รายงานการแจ้งซ่อม</a>
+            <a href="javascript:logout();">ออกจากระบบ</a>
+        </div>
     <div class="container" style="padding-left: 0%;height: 100%;">
-        <a name="" id="" class="btn btn-dark rounded-0 top-left mt-2" href="home.html" role="button"> กลับหน้าเมนู</a>
+        <!-- <a name="" id="" class="btn btn-dark rounded-0 top-left mt-2" href="home.html" role="button"> กลับหน้าเมนู</a> -->
 
 
 
     </div>
 
     <script type="text/javascript" src="js/index.js"></script>
-
+    <script type="text/javascript" src="js/sidebar.js"></script>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

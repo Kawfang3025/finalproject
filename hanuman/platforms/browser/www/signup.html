@@ -121,6 +121,7 @@
 
 </body>
 <script>
+    var IP = localStorage.getItem("IP");
 
     function insert() {
         // console.log(department.value);
@@ -139,10 +140,10 @@
             console.log(department);
             
             if (department == "Engineering") {
-                url = "http://localhost:8080/technicains/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + ","+password +"," + "";
+                url = "http://"+IP+":8080/technicains/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + ","+password +"," + "";
                 
             } else {
-                url = "http://localhost:8080/employees/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + "," + password + "," + "";
+                url = "http://"+IP+":8080/employees/insert/" + firstName + "," + lastName + "," + nickname + "," + department + "," + positions + "," + telNumber + "," + e_mail + "," + password + "," + "";
             }
             console.log(url);
             
@@ -150,7 +151,7 @@
             xmlhttp.open("POST", url, false);
             xmlhttp.send();
             localStorage.setItem("email",e_mail);
-            window.location.href = 'home.html';
+            window.location.href = 'request.html';
         } else {
             document.getElementById("buttoncf").innerHTML+= '<div class="alert alert-danger alert-dismissible fade show">'+
             '<button type="button" class="close" data-dismiss="alert">&times;</button>'+

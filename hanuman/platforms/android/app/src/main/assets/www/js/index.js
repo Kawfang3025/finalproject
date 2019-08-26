@@ -44,3 +44,10 @@ var app = {
 };
 
 app.initialize();
+
+function logout(){
+    console.log('logout!');
+    
+    localStorage.clear('email');
+    window.location.href = 'index.html'
+}

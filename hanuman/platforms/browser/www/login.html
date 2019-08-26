@@ -58,34 +58,12 @@
   
 </body>
 <script>
-	
+	var IP = localStorage.getItem("IP");
 	function authen(email,password){
-		// console.log(email);
-		// console.log(password);
-	// 	var xmlhttp = new XMLHttpRequest();
-    //             var url = "http://localhost:8080/technicains";
-    //             xmlhttp.open("GET", url, false);
-    //             xmlhttp.send();
-	// 			var id;
-    //             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    //                 var output = xmlhttp.responseText;
-    //                 var jsoutput = JSON.parse(output);
-					
-    //                 for (let i = 0; i < jsoutput.length; i++) {
-    //                         if( email === jsoutput[i].e_mail && password === jsoutput[i].password ){
-	// 							localStorage.setItem("email",email);
-	// 							window.location.href = 'home.html'
-    //                         }else{
-	// 							document.getElementById("alert").innerHTML = '<div class="alert alert-danger alert-dismissible fade show">'+
-    // '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-    // '<strong>รหัสผ่านไม่ตรงกัน!</strong></div>';
-	// 						}
-
-    //                 }
-	//             }
+			let check =0;
 			var ID = 0;
 			var xmlhttp = new XMLHttpRequest();
-            var url1 = "http://localhost:8080/technicains";
+            var url1 = "http://"+IP+":8080/technicains";
             xmlhttp.open("GET", url1, false);
             xmlhttp.send();
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -95,15 +73,14 @@
                     if( email === jsoutput[i].e_mail && password === jsoutput[i].password ){
 						ID = jsoutput[i].technicainID;
 						localStorage.setItem("email",email);
-						window.location.href = 'home.html'
-                    }else{
-	 					document.getElementById("alert").innerHTML = '<div class="alert alert-danger alert-dismissible fade show">'+
-    					'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-     					'<strong>รหัสผ่านไม่ตรงกัน!</strong></div>';
-					}
+						window.location.href = 'request.html'
+						check = 1;
+
+                    }
                 }
+				
                 if(ID === 0){
-                    url2 = "http://localhost:8080/employees";
+                    url2 = "http://"+IP+":8080/employees";
                     xmlhttp.open("GET", url2, false);
                     xmlhttp.send();
                     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -112,15 +89,23 @@
                         for (let i = 0; i < jsoutput.length; i++) {
                             if (email === jsoutput[i].e_mail && password === jsoutput[i].password ) {
 								localStorage.setItem("email",email);
-								window.location.href = 'home.html'
+								window.location.href = 'request.html'
+								
                             }else{
-	 							document.getElementById("alert").innerHTML = '<div class="alert alert-danger alert-dismissible fade show">'+
-    							'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-     							'<strong>รหัสผ่านไม่ตรงกัน!</strong></div>';
+								if(jsoutput.length == (i+1)){
+									
+								// 	document.getElementById("alert").innerHTML = '<div class="alert alert-danger alert-dismissible fade show">'+
+    							// '<button type="button" class="close" data-dismiss="alert">&times;</button>'+'<strong>รหัสผ่านไม่ตรงกัน!</strong></div>';
+								}
+	 							
 							}
                         }
                     }
                 }
+				if(check == 0){
+								document.getElementById("alert").innerHTML = '<div class="alert alert-danger alert-dismissible fade show">'+
+    							'<button type="button" class="close" data-dismiss="alert">&times;</button>'+'<strong>รหัสผ่านไม่ตรงกัน!</strong></div>';
+						}
 			}
 			console.log(ID)
 		

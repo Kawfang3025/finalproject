@@ -12,6 +12,9 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "com.hanuman.somdai"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.hanuman.somdai"
     }
   },
   "dependent_plugins": {}

@@ -2,6 +2,12 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
         integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
@@ -9,21 +15,59 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <title>SomDai</title>
 </head>
 
 <body
-    style="background-image: radial-gradient( circle farthest-corner at 1.8% 0%,  rgba(255,255,255,1) 37.6%, #bbb 90% );">
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="background-color: rgb(10, 6, 43)">
+    style="height:auto;background-image: radial-gradient( circle farthest-corner at 1.8% 0%,  rgba(255,255,255,1) 37.6%, #bbb 90% );">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark" style="background-color: rgb(10, 6, 43)">
+        <!-- Toggler/collapsibe Button -->
+        <a id="main" style="color: aliceblue">
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+        </a>
 
-        <h4 class="text-light ">SomDai</h4>
+        <!-- <h4 class="text-light ">SomDai</h4> -->
+        <a class="navbar-brand" href="#">
+            <img src="img/logo.png" alt="logo" style="width:40px;">
+        </a>
 
     </nav>
-    <div class="container" style="padding-left: 0%;height: 100%;">
-        <a name="" id="" class="btn btn-dark rounded-0 top-left mt-2" href="home.html" role="button"> กลับหน้าเมนู</a>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="col-8 ">
+            <img src=" img/profile.png" class="rounded-circle" alt="Cinque Terre" style="width: 100%">
+        </div>
+        <div class="col-16">
+            <div class="card" style="width: auto">
+                <div class="card-body">
+                    <h5 class="card-title" id="fname">ชื่อ-สกุล</h5>
+                    <h6 class="card-subtitle mb-2 text-muted" id="position">ตำแหน่ง</h6>
 
-        <div id="requestlist" class="container req">
+                </div>
+            </div>
+        </div>
+        <a href="request.html">หน้าหลัก</a>
+        <a href="newRequest.html">แจ้งซ่อม</a>
+        <a href="report.html">รายงานการแจ้งซ่อม</a>
+        <a href="javascript:logout();">ออกจากระบบ</a>
+    </div>
+
+    <!-- <div id="main">
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+          </div> -->
+    <div class="container" style="padding-left: 0%;height: 100%;">
+        <!-- <a name="" id="" class="btn btn-dark rounded-0 top-left mt-2" href="home.html" role="button"> กลับหน้าเมนู</a> -->
+
+        <!-- <div id="requestlist" class="container req">
             <hr>
+        </div> -->
+        <div class="container mt-3">
+            <input class="form-control" id="myInput" type="text" placeholder="Search..">
+            <br>
+            <div id="requestlist" class="container req">
+                <hr>
+            </div>
         </div>
 
     </div>
@@ -32,6 +76,8 @@
         var ID = 0;
         var department;
         var position;
+        var status = [];
+        var color = [];
         var employeeID = [];
         var firstname = [];
         var lastname = [];
@@ -39,6 +85,7 @@
         var detail = [];
         var date = [];
         var repairID = [];
+        var IP = localStorage.getItem("IP");
 
         init();
         selectRepairingByID(ID);
@@ -47,7 +94,7 @@
         function init() {
             var xmlhttp = new XMLHttpRequest();
             var email = localStorage.getItem("email");
-            var url1 = "http://localhost:8080/technicains";
+            var url1 = "http://"+IP+":8080/technicains";
             xmlhttp.open("GET", url1, false);
             xmlhttp.send();
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -60,8 +107,8 @@
                         department = jsoutput[i].department;
                     }
                 }
-                if(ID === 0){
-                    url2 = "http://localhost:8080/employees";
+                if (ID === 0) {
+                    url2 = "http://"+IP+":8080/employees";
                     xmlhttp.open("GET", url2, false);
                     xmlhttp.send();
                     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -82,14 +129,16 @@
         function selectRepairingByID() {
             var xmlhttp = new XMLHttpRequest();
             var url;
-            if(department === "Engineering"){
-                if(position === "Supervisor"){
-                    url = "http://localhost:8080/repairing";
-                }else{
-                    url = "http://localhost:8080/repairing/technicain/" + ID;
+            var pos; if (department === "Engineering") {
+                if (position === "Supervisor") {
+                    url = "http://"+IP+":8080/repairing";
+                    pos = "H";
+                } else {
+                    url = "http://"+IP+":8080/repairing/technicain/" + ID;
+                    pos = "E";
                 }
-            }else{
-                url = "http://localhost:8080/repairing/department/" + department;
+            } else {
+                url = "http://"+IP+":8080/repairing/department/" + department;
             }
             xmlhttp.open("GET", url, false);
             xmlhttp.send();
@@ -103,6 +152,23 @@
                     date.push(jsoutput[i].date);
                     employeeID.push(jsoutput[i].employeeID);
                     repairID.push(jsoutput[i].repairingID);
+
+                    if (pos === "H") {
+                        if (jsoutput[i].statusHead === "y") {
+                            color.push("green")
+                        } else if (jsoutput[i].statusHead === "n") {
+                            color.push("red")
+                        }
+
+                    } else if (pos === "E") {
+                        if (jsoutput[i].statusTech === "y") {
+                            color.push("green")
+                        } else if (jsoutput[i].statusTech === "n") {
+                            color.push("red")
+                        }
+                    } else {
+                        color.push("white")
+                    }
                 }
             }
             console.log(detail);
@@ -113,7 +179,7 @@
         function selectEmployeeByID() {
             for (let i = 0; i < employeeID.length; i++) {
                 var xmlhttp = new XMLHttpRequest();
-                var url = "http://localhost:8080/employees/employeeID/" + employeeID[i];
+                var url = "http://"+IP+":8080/employees/employeeID/" + employeeID[i];
                 xmlhttp.open("GET", url, false);
                 xmlhttp.send();
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -133,18 +199,31 @@
 
 
         function showRepairList() {
+
             for (let i = 0; i < detail.length; i++) {
-                document.getElementById('requestlist').innerHTML += '<div onclick="showdetail(`' + firstname[i] + '`,`' + lastname[i] + '`,`' + detail[i] + '`,`' + employeeID[i] + '`,`'+repairID[i]+ '`)"  class="row"><hr><i class="fas fa-circle ml-1 " style="color: rgb(255, 4, 4)"></i>' +
+                document.getElementById('requestlist').innerHTML += '<div onclick="showdetail(`' + firstname[i] + '`,`' + lastname[i] + '`,`' + detail[i] + '`,`' + employeeID[i] + '`,`' + repairID[i] + '`)"  class="row"><hr><i class="fas fa-circle ml-1 " style="color:' + color[i] + '"></i>' +
                     '<img src="img/picpro.jpg" class="col-2 rounded-circle pl-0 pr-0" width="100%">' +
                     '<div  class="col-10 row">' +
                     '<a class="col-7 text-truncate" style="font-weight:bold" >' + firstname[i] + " " + lastname[i] + '</a>' +
-                    '<a class="col-5" style="font-weight:bold">' + date[i] + '</a>' +
+                    '<a class="col-5" style="font-weight:bold;">' + date[i] + '</a>' +
                     '<a class="col-12 text-truncate" style="font-weight:bold;color: blue;">' + detail[i] + '</a>' +
                     '</div> </div></div><hr>';
             }
         }
 
-        function showdetail(firstname,lastname,detail,empID,repairID) {
+        function showdetail(firstname, lastname, detail, empID, repairID) {
+
+            var xmlhttp = new XMLHttpRequest();
+            var url;
+            if (department === "Engineering") {
+                if (position === "Supervisor") {
+                    url = "http://"+IP+":8080/repairing/update/statusHead/" + repairID;
+                } else {
+                    url = "http://"+IP+":8080/repairing/update/statusTech/" + repairID;
+                }
+            }
+            xmlhttp.open("GET", url, false);
+            xmlhttp.send();
             localStorage.setItem('repairID', repairID);
             localStorage.setItem('namerp', firstname);
             localStorage.setItem('lastrp', lastname);
@@ -152,10 +231,19 @@
             localStorage.setItem('empID', empID);
             window.location.href = 'requestdetail.html';
         }
+
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val();
+                $("#requestlist").filter(function () {
+                    $(this).toggle($(this).text())
+                });
+            });
+        });
     </script>
 
     <script type="text/javascript" src="js/index.js"></script>
-
+    <script type="text/javascript" src="js/sidebar.js"></script>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

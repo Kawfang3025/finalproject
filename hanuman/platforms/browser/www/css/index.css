@@ -191,3 +191,12 @@ html {
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
     background-color: #0b003d !important;
 }
+.btn-circle {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 30px;
+  }
