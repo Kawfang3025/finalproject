@@ -9,11 +9,11 @@ function openNav() {
     document.getElementById("main").style.marginLeft= "0";
     document.body.style.backgroundColor = "white";
   }
-
+  var IP = localStorage.getItem("IP");
   var ID = 0;
     var xmlhttp = new XMLHttpRequest();
     var email = localStorage.getItem("email");
-    var url1 = "http://localhost:8080/technicains";
+    var url1 = "http://"+IP+":8080/technicains";
     xmlhttp.open("GET", url1, false);
     xmlhttp.send();
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
